@@ -1,3 +1,4 @@
+from tkinter.tix import Tree
 import pandas as pd
 from utils import get_soup, df_columns, df_row, this_year, today_numeric
 
@@ -9,9 +10,10 @@ def artbar():
     artbar_soup = get_soup("https://www.artbar2pad.com/shows")
     events = artbar_soup.find_all("li", {"data-hook":"events-card"})
     for event in events:
-        date_time = event.find("div", {"data-hook": "date"}).text
-        row["Date"] = date_time[:-6] + f" {this_year()}"
-        row["Time"] = date_time[-5:]
+        date, month, time = event.find("div", {"data-hook": "date"}).text.split(".")
+        event_datetime = pd.to_datetime(f"{this_year()}-{month}-{date} {time}")
+        row["Date"] = event_datetime.date()
+        row["Time"] = event_datetime.time()
         title = event.find("div", {"data-hook": "title"})
         row["Name"] = title.text
         row["Link"] = title.a["href"]
@@ -34,20 +36,44 @@ def melodka():
         events = melodka_soup.find_all("div", {"class": "program_line2"})
 
         for event in events:
-            row["Date"] = event.find("div", {"class": "datum"}).text
+            date = event.find("div", {"class": "datum"}).text
+            # print(date)
+            # exit()
+            row["Date"] = pd.to_datetime(date, dayfirst=True).date()
             title = event.find("div", {"class": "nazev"})
             row["Name"] = title.text
             row["Link"] = "https://www.melodka.cz" + title.a["href"]
             melodka_df.loc[len(melodka_df.index)] = row
-            
+
     return melodka_df
 
+def metro():
+    metro_df = pd.DataFrame(columns=df_columns)
+    row = df_row.copy()
+    row["Venue"] = "Metro Music"
+
+    metro_soup = get_soup("https://www.metromusic.cz/program/")
+    events = metro_soup.find_all("div", {"class": "item-inner"})
+    for event in events:
+        date, time = event.find("p", {"class": "date"}).text.strip().split(" ")
+        event_datetime = pd.to_datetime(f"{date}/{this_year()}/{time[1:-1]}",
+                                        dayfirst=True)
+        row["Date"] = event_datetime.date()
+        row["Time"] = event_datetime.time()
+        row["Name"] = event.find("h3").text.strip()
+        row["Link"] = event.a["href"]
+        info = event.find("p", {"class": "subhead"})
+        if info:
+            row["Info"] = info.text.strip()
+        metro_df.loc[len(metro_df.index)] = row
+        
+    return metro_df
+
+def main():
+    df_all = pd.concat([artbar(), melodka(), metro()])
+    df_all = df_all.sort_values(by="Date")[["Date", "Name", "Venue", "Link"]]
+    df_all.to_csv("out/all.csv", index=False)
+
 if __name__ == "__main__":
-    # print(artbar())
-    # print(melodka())
-    df_all = artbar().append(melodka())
-    df_all = df_all.sort_index()[["Date", "Name", "Link", "Info"]]
-    print(df_all)
-    df_all.to_html("out/all.html")
-    # melodka().to_markdown("out/melodka.md")
-    # artbar().to_markdown("out/artbar.md")
+    # print(metro())
+    main()

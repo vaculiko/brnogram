@@ -7,6 +7,7 @@ df_columns = ["Date", "Time", "Name", "Venue", "Price", "Link", "Info"] # doplni
 df_row = {column:None for column in df_columns}
 
 def get_soup(url: str):
+
     response = get(url)
     if response.status_code == 200:
         print(f"OK - {url}")
