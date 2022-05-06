@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 from requests import get, post
@@ -7,7 +8,6 @@ df_columns = ["Date", "Time", "Name", "Venue", "Price", "Link", "Info"] # doplni
 df_row = {column:None for column in df_columns}
 
 def get_soup(url: str):
-
     response = get(url)
     if response.status_code == 200:
         print(f"OK - {url}")
@@ -22,6 +22,14 @@ def post_soup(url: str, payload):
     else:
         print(f"ERROR - {url}")
     return BeautifulSoup(response.text, 'html.parser')
+
+def get_json(url: str):
+    response = get(url)
+    if response.status_code == 200:
+        print(f"OK - {url}")
+    else:
+        print(f"ERROR - {url}")
+    return json.loads(response.text)
 
 
 def today_numeric() -> tuple:
