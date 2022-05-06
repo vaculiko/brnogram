@@ -1,5 +1,8 @@
 from datetime import datetime
-from utils import *
+
+import pandas as pd
+
+# from scraper.utils import *
 
 # art = "https://www.kinoart.cz/cs/program/cihlarska"
 # def parse_datetmie_art(date_time):
@@ -57,6 +60,8 @@ def kino_art():
     art_df = art_df[["Date", "Time", "Name", "Venue", "Price", "Link"]]
     return art_df
 
-if __name__ == "__main__":
-    df = kino_art()
-    df.to_html("art_df.html")
+def cinemas():
+    """Scrape all cinemas"""
+    # df_cinemas = pd.concat([kino_art()])
+    df_cinemas = kino_art()
+    return df_cinemas

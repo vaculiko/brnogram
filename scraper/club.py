@@ -34,7 +34,7 @@ def melodka():
             # exit()
             row["Date"] = pd.to_datetime(date, dayfirst=True).date()
             title = event.find("div", {"class": "nazev"})
-            row["Name"] = title.text
+            row["Name"] = title.text.strip()
             row["Link"] = "https://www.melodka.cz" + title.a["href"]
             melodka_df.loc[len(melodka_df.index)] = row
 
