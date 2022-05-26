@@ -10,7 +10,8 @@ def test():
 
 
 def run():
-    print("Spoustim scraping")
+    print("--- Spoustim scraping ---")
     df_all = pd.concat([clubs(), theatres()])
     df_all = df_all.sort_values(by="Date")[["Date", "Name", "Venue", "Link"]]
     df_all.to_csv("out/all.csv", index=False)
+    print("--- Ulozeno do 'out/all.csv' ---")
