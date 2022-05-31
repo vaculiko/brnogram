@@ -2,7 +2,7 @@ from pprint import pprint
 
 import pandas as pd
 
-from scraper.utils import get_json, get_events, init_df
+from scraper.utils import get_json, get_events, init_df, this_year, this_month
 
 
 def colabs():
@@ -36,8 +36,24 @@ def colabs():
 
     return colabs_df
 
+
+def kjogen():
+    kjogen_df, row = init_df("Kjógen")
+    urls = [f"http://www.kjogen.cz/{this_year()}/{m}/" for m in range(1, 13)]
+    for url in urls:
+        # print(url)
+        table = get_events(url, "table", {"class": "program"})
+        if table:
+            for row in table[0].find("tbody").find_all("tr"):
+                date_time, venue, program = row.find_all("td")
+                print(date_time.text, venue.text, program, sep="\n", end="\n\n")
+
 def theatres():
     # df_theatres = pd.concat([colabs()])
     df_theatres = colabs()
     df_theatres = df_theatres.sort_values(by="Date")[["Date", "Name", "Venue", "Link"]]
     return df_theatres
+
+
+if __name__ == "__main__":
+    kjogen()
