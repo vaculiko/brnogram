@@ -1,3 +1,4 @@
 import scraper
 
-scraper.run()
+# scraper.all_to_csv()
+scraper.all_to_sql()
