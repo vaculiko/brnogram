@@ -39,3 +39,4 @@ venues = ["VenueName", "VenueLink", "VenueLocation", "VenueType", "VenuePhone", 
 - Filtrování podle typu akce
 - Vykreslení akcí na mapě - sloupec `VenueLocation`, datový typ pro GPS souřadnice?
 - Info o podniku z Google Maps - [Places API](https://developers.google.com/maps/documentation/places/web-service/details)
+- Vlastní API - komunikace s ESP32, M5Paper, Home Assistant,...
