@@ -1,5 +1,5 @@
 # brnogram
-<<<<<<< Updated upstream
+
 Program akcí ve vybraných podnicích z Brna na jednom místě!  
 Zatím jako tabulkový výpis času, názvu a odkazu na stránky akce.
 
@@ -69,4 +69,3 @@ Mon 1.2.2000 | 20:00 | The Show | Scala | 123 | www.scala.cz
 - Scraping - [BeautifulSoup4](https://beautiful-soup-4.readthedocs.io/en/latest/)
 - Website - [Django](https://tutorial.djangogirls.org/cs/)
 - Hosting - [PythonAnywhere](https://www.pythonanywhere.com/)
->>>>>>> Stashed changes
