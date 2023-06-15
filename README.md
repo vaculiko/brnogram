@@ -1,4 +1,5 @@
 # brnogram
+<<<<<<< Updated upstream
 Program akcí ve vybraných podnicích z Brna na jednom místě!  
 Zatím jako tabulkový výpis času, názvu a odkazu na stránky akce.
 
@@ -40,3 +41,32 @@ venues = ["VenueName", "VenueLink", "VenueLocation", "VenueType", "VenuePhone", 
 - Vykreslení akcí na mapě - sloupec `VenueLocation`, datový typ pro GPS souřadnice?
 - Info o podniku z Google Maps - [Places API](https://developers.google.com/maps/documentation/places/web-service/details)
 - Vlastní API - komunikace s ESP32, M5Paper, Home Assistant,...
+=======
+
+Program akcí ve vybraných podnicích z Brna na jednom místě!
+
+## Verze 1
+
+Python scraping do pandas datafrane
+Django website na zobraznení dataframe.to_html
+Program po týdnu, rozdělení na dny
+
+## Verze 2
+
+Python scraping do databáze (MySQL?)
+Django website, zobrazení s filtrováním
+Tagy na typy akcí, žánry,...
+
+## Řádek databáze
+
+Date | Hour | Name | Venue | Price | URL
+-|-|-|-|-|-
+Mon 1.2.2000 | 20:00 | The Show | Scala | 123 | www.scala.cz
+
+### Resources
+
+- Databáze - [Pandas](https://pandas.pydata.org/docs/)
+- Scraping - [BeautifulSoup4](https://beautiful-soup-4.readthedocs.io/en/latest/)
+- Website - [Django](https://tutorial.djangogirls.org/cs/)
+- Hosting - [PythonAnywhere](https://www.pythonanywhere.com/)
+>>>>>>> Stashed changes
